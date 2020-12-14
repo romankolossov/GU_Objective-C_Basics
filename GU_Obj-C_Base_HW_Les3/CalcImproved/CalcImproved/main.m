@@ -9,13 +9,13 @@
 
 // MARK: - MathOperation
 
-enum MathOperation {
+typedef enum {
     add,
     subtrac,
     multiply,
     divide,
     divideByModul
-};
+} MathOperation;
 
 // MARK: - Major methods
 
@@ -40,7 +40,7 @@ int modulDivision(double x, double y) {
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // Some properties
-        enum MathOperation mathOperation;
+        MathOperation mathOperation;
         double x, y;
         
         char actionChar;
