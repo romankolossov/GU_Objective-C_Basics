@@ -6,28 +6,20 @@
 //
 
 #import <Foundation/Foundation.h>
-
-// MARK: - MathOperation
-
-typedef enum {
-    add,
-    subtrac,
-    multiply,
-    divide,
-    divideByModul
-} MathOperation;
+#import "Calc.h"
 
 // MARK: - Main
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // Some properties
-        MathOperation mathOperation;
         double x, y;
-        
         char actionChar;
         NSString *defActions = @"12345+-*/%";
         NSString *action;
+        
+        Calc *calc = [[Calc alloc] init];
+        MathOperation mathOperation;
         
         printf("Enter first number, x: ");
         scanf("%lf", &x);
@@ -35,6 +27,7 @@ int main(int argc, const char * argv[]) {
         scanf("%lf", &y);
         
         do {
+            getchar();
             printf("Enter an action to perform:\n1 - sum, +\n2 - difference, -\n3 - multiplication, *\n4 - division, /\n5 - division by modul, %%\n");
             scanf("%c", &actionChar);
             
@@ -60,7 +53,13 @@ int main(int argc, const char * argv[]) {
         } else {
             return  0;
         }
+        [calc configureWithX: [NSNumber numberWithDouble: x] andY: [NSNumber numberWithDouble: y] andMathOperation: mathOperation];
         
+        [calc calculate];
+        
+        [defActions release];
+        [action release];
+        [calc release];
     }
     return 0;
 }

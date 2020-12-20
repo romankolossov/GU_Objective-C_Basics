@@ -15,27 +15,27 @@
     switch (_mathOperation) {
         case add: {
             NSNumber *res = @([self.x floatValue] + [self.y floatValue]);
-            NSLog(@"%@ + %@ = %.@", self.x, self.y, res);
+            NSLog(@"Calculations: %@ + %@ = %.@", self.x, self.y, res);
         }
             break;
         case subtrac: {
             NSNumber *res = @([self.x floatValue] - [self.y floatValue]);
-            NSLog(@"%@ + %@ = %.@", self.x, self.y, res);
+            NSLog(@"Calculations: %@ - %@ = %.@", self.x, self.y, res);
         }
             break;
         case multiply: {
             NSNumber *res = @([self.x floatValue] * [self.y floatValue]);
-            NSLog(@"%@ + %@ = %.@", self.x, self.y, res);
+            NSLog(@"Calculations: %@ * %@ = %.@", self.x, self.y, res);
         }
             break;
         case divide: {
             NSNumber *res = @([self.x floatValue] / [self.y floatValue]);
-            NSLog(@"%@ + %@ = %.@", self.x, self.y, res);
+            NSLog(@"Calculations: %@ / %@ = %.@", self.x, self.y, res);
         }
             break;
         case divideByModul: {
             NSNumber *res = @([self.x intValue] % [self.y intValue]);
-            NSLog(@"%@ + %@ = %.@", self.x, self.y, res);
+            NSLog(@"Calculations: %@ %% %@ = %.@", self.x, self.y, res);
         }
             break;
         default:
@@ -43,19 +43,7 @@
     }
 };
 
-- (instancetype) init {
-    self = [super init];
-    if (self) {
-        NSLog(@"Create Calc");
-    }
-    return self;
-};
-- (void)dealloc {
-    NSLog(@"Dealloc x and y");
-    [_x release];
-    [_y release];
-    [super dealloc];
-}
+// MARK: - Configure
 
 - (void)configureWithX:(NSNumber *)x andY:(NSNumber *)y andMathOperation:(MathOperation)mathOperation {
     _mathOperation = mathOperation;
@@ -63,12 +51,28 @@
     [x retain];
     [_x release];
     _x = x;
-    NSLog(@"Add x %@ to the calc of ", _x);
+    NSLog(@"X added to the calc with value of %@ ", _x);
     
     [y retain];
     [_y release];
     _y = y;
-    NSLog(@"Add y %@ to the calc of", _y);
+    NSLog(@"Y added to the calc with value of %@ ", _y);
+}
+
+// MARK: - Initializer
+
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        NSLog(@"Calc created");
+    }
+    return self;
+};
+- (void)dealloc {
+    NSLog(@"Calc dealocated");
+    [_x release];
+    [_y release];
+    [super dealloc];
 }
 
 @end
