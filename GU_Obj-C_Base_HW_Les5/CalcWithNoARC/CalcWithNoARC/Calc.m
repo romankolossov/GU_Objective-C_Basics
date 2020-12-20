@@ -11,29 +11,6 @@
 
 // MARK: - Major methods
 
-- (NSNumber *)summingWithX:(NSNumber *)x andY:(NSNumber*)y {
-    NSNumber *res = @([x floatValue] + [y floatValue]);
-    return res;
-};
-- (NSNumber *)differenceWithX:(NSNumber *)x andY:(NSNumber*)y {
-    NSNumber *res = @([x floatValue] - [y floatValue]);
-    return res;
-};
-
-- (NSNumber *)multiplicationWithX:(NSNumber *)x andY:(NSNumber*)y {
-    NSNumber *res = @([x floatValue] * [y floatValue]);
-    return res;
-};
-- (NSNumber *)divisionWithX:(NSNumber *)x andY:(NSNumber*)y {
-    NSNumber *res = @([x floatValue] / [y floatValue]);
-    return res;
-};
-
-- (NSNumber *)modulDivisionWithX:(NSNumber *)x andY:(NSNumber*)y {
-    NSNumber *res = @([x intValue] % [y intValue]);
-    return res;
-};
-
 - (void)calculate {
     switch (_mathOperation) {
         case add: {
@@ -86,12 +63,12 @@
     [x retain];
     [_x release];
     _x = x;
-    NSLog(@"Add x %@ to the calc", _x);
+    NSLog(@"Add x %@ to the calc of ", _x);
     
     [y retain];
     [_y release];
     _y = y;
-    NSLog(@"Add y %@ to the calc", _y);
+    NSLog(@"Add y %@ to the calc of", _y);
 }
 
 @end

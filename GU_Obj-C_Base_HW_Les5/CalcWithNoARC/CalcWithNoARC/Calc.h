@@ -21,24 +21,17 @@ typedef enum {
 
 @interface Calc : NSObject
 
+// MARK: - Some properties
+
 @property (nonatomic, strong) NSNumber *x;
 @property (nonatomic, strong) NSNumber *y;
 @property (nonatomic) MathOperation mathOperation;
 
 // MARK: - Major methods
 
-- (NSNumber *)summingWithX:(NSNumber *)x andY:(NSNumber*)y;
-- (NSNumber *)differenceWithX:(NSNumber *)x andY:(NSNumber*)y;
-
-- (NSNumber *)multiplicationWithX:(NSNumber *)x andY:(NSNumber*)y;
-- (NSNumber *)divisionWithX:(NSNumber *)x andY:(NSNumber*)y;
-
-- (NSNumber *)modulDivisionWithX:(NSNumber *)x andY:(NSNumber*)y;
-
 - (void)configureWithX:(NSNumber *)x andY:(NSNumber *)y andMathOperation:(MathOperation)mathOperation;
-- (void)calculate;
 
-//- (void)dealloc; 
+- (void)calculate;
 
 @end
 

@@ -17,24 +17,6 @@ typedef enum {
     divideByModul
 } MathOperation;
 
-// MARK: - Major methods
-
-double summing(double x, double y) {
-    return x + y;
-}
-double difference(double x, double y) {
-    return x - y;
-}
-double multiplication(double x, double y) {
-    return x * y;
-}
-double division(double x, double y) {
-    return x / y;
-}
-int modulDivision(double x, double y) {
-    return (int)x % (int)y;
-}
-
 // MARK: - Main
 
 int main(int argc, const char * argv[]) {
@@ -79,35 +61,6 @@ int main(int argc, const char * argv[]) {
             return  0;
         }
         
-        switch (mathOperation) {
-            case add: {
-                double sum = summing(x, y);
-                NSLog(@"%.3f + %.3f = %.3f", x, y, sum);
-            }
-                break;
-            case subtrac: {
-                double diff = difference(x, y);
-                NSLog(@"%.3f - %.3f = %.3f", x, y, diff);
-            }
-                break;
-            case multiply: {
-                double mult = multiplication(x, y);
-                NSLog(@"%.3f * %.3f = %.3f", x, y, mult);
-            }
-                break;
-            case divide: {
-                double div = division(x, y);
-                NSLog(@"%.3f / %.3f = %.3f", x, y, div);
-            }
-                break;
-            case divideByModul: {
-                int modulDiv = modulDivision(x, y);
-                NSLog(@"%d %% %d = %d", (int)x, (int)y, modulDiv);
-            }
-                break;
-            default:
-                break;
-        }
     }
     return 0;
 }
