@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
         NSString *defActions = @"12345+-*/%";
         NSString *action;
         
-        // calc initialization
+        // Initialising
         Calc *calc = [[Calc alloc] init];
         
         printf("Enter first number, x: ");
@@ -36,7 +36,6 @@ int main(int argc, const char * argv[]) {
             
             action = [NSString stringWithFormat:@"%c", actionChar];
         } while ( ![defActions containsString: action] );
-        
         [defActions release];
         
         BOOL provedSum = [action isEqualToString: @"+"] || [action isEqualToString: @"1"];
@@ -44,7 +43,6 @@ int main(int argc, const char * argv[]) {
         BOOL provedMultiplication = [action isEqualToString: @"*"] || [action isEqualToString: @"3"];
         BOOL provedDivision = [action isEqualToString: @"/"] || [action isEqualToString: @"4"];
         BOOL provedDivisionByModul = [action isEqualToString: @"%"] || [action isEqualToString: @"5"];
-        
         [action release];
         
         if (provedSum) {
@@ -63,7 +61,6 @@ int main(int argc, const char * argv[]) {
         [calc configureWithX: [NSNumber numberWithDouble: x] andY: [NSNumber numberWithDouble: y] andMathOperation: mathOperation];
         
         [calc calculate];
-        
         [calc release];
     }
     return 0;

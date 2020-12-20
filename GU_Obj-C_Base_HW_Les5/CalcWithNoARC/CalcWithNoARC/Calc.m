@@ -43,7 +43,7 @@
     }
 };
 
-// MARK: - Configure
+// MARK: - Configure method
 
 - (void)configureWithX:(NSNumber *)x andY:(NSNumber *)y andMathOperation:(MathOperation)mathOperation {
     _mathOperation = mathOperation;

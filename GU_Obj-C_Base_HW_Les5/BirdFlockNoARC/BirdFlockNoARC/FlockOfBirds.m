@@ -29,7 +29,7 @@
     [super dealloc];
 }
 
-// MARK: - Configure
+// MARK: - Configure method
 
 - (void)configureWithBirdLeader:(BirdLeader *)birdLeader andBirds:(NSArray<Bird *> *)birds {
     [birdLeader retain];

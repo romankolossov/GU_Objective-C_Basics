@@ -14,7 +14,14 @@
 - (instancetype)initWithLeader:(NSString *)leader {
     self = [super init];
     if (self) {
+        // copy case
         _leader = [leader copy];
+        
+        // no copy case
+        // [leader retain];
+        // [_leader release];
+        // _leader = leader;
+        
         NSLog(@"Bird leader created with name %@", _leader);
     }
     return self;
