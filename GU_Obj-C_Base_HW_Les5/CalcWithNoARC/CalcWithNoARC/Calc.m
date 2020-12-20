@@ -14,28 +14,28 @@
 - (void)calculate {
     switch (_mathOperation) {
         case add: {
-            NSNumber *res = @([self.x floatValue] + [self.y floatValue]);
-            NSLog(@"Calculations: %@ + %@ = %.@", self.x, self.y, res);
+            double res = [self.x doubleValue] + [self.y doubleValue];
+            NSLog(@"Calculations: %@ + %@ = %.3f", self.x, self.y, res);
         }
             break;
         case subtrac: {
-            NSNumber *res = @([self.x floatValue] - [self.y floatValue]);
-            NSLog(@"Calculations: %@ - %@ = %.@", self.x, self.y, res);
+            double res = [self.x doubleValue] - [self.y doubleValue];
+            NSLog(@"Calculations: %@ - %@ = %.3f", self.x, self.y, res);
         }
             break;
         case multiply: {
-            NSNumber *res = @([self.x floatValue] * [self.y floatValue]);
-            NSLog(@"Calculations: %@ * %@ = %.@", self.x, self.y, res);
+            double res = [self.x doubleValue] * [self.y doubleValue];
+            NSLog(@"Calculations: %@ * %@ = %.3f", self.x, self.y, res);
         }
             break;
         case divide: {
-            NSNumber *res = @([self.x floatValue] / [self.y floatValue]);
-            NSLog(@"Calculations: %@ / %@ = %.@", self.x, self.y, res);
+            double res = [self.x doubleValue] / [self.y doubleValue];
+            NSLog(@"Calculations: %@ / %@ = %.3f", self.x, self.y, res);
         }
             break;
         case divideByModul: {
-            NSNumber *res = @([self.x intValue] % [self.y intValue]);
-            NSLog(@"Calculations: %@ %% %@ = %.@", self.x, self.y, res);
+            long res = [self.x longValue] % [self.y longValue];
+            NSLog(@"Calculations: %@ %% %@ = %ld", self.x, self.y, res);
         }
             break;
         default:
@@ -68,6 +68,9 @@
     }
     return self;
 };
+
+// MARK: - Dealoc
+
 - (void)dealloc {
     NSLog(@"Calc dealocated");
     [_x release];

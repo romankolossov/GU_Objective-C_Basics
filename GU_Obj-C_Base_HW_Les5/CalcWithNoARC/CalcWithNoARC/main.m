@@ -12,14 +12,17 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // Some properties
+        // Simple types
         double x, y;
         char actionChar;
+        MathOperation mathOperation;
+        
+        // Object types
         NSString *defActions = @"12345+-*/%";
         NSString *action;
         
+        // calc initialization
         Calc *calc = [[Calc alloc] init];
-        MathOperation mathOperation;
         
         printf("Enter first number, x: ");
         scanf("%lf", &x);
@@ -34,11 +37,15 @@ int main(int argc, const char * argv[]) {
             action = [NSString stringWithFormat:@"%c", actionChar];
         } while ( ![defActions containsString: action] );
         
+        [defActions release];
+        
         BOOL provedSum = [action isEqualToString: @"+"] || [action isEqualToString: @"1"];
         BOOL provedDifference = [action isEqualToString: @"-"] || [action isEqualToString: @"2"];
         BOOL provedMultiplication = [action isEqualToString: @"*"] || [action isEqualToString: @"3"];
         BOOL provedDivision = [action isEqualToString: @"/"] || [action isEqualToString: @"4"];
         BOOL provedDivisionByModul = [action isEqualToString: @"%"] || [action isEqualToString: @"5"];
+        
+        [action release];
         
         if (provedSum) {
             mathOperation = add;
@@ -57,8 +64,6 @@ int main(int argc, const char * argv[]) {
         
         [calc calculate];
         
-        [defActions release];
-        [action release];
         [calc release];
     }
     return 0;

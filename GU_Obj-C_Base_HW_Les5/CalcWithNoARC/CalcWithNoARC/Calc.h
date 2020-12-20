@@ -21,11 +21,11 @@ typedef enum {
 
 @interface Calc : NSObject
 
-// MARK: - Some properties
-
+// Some properties
 @property (nonatomic, strong) NSNumber *x;
 @property (nonatomic, strong) NSNumber *y;
-@property (nonatomic) MathOperation mathOperation;
+// Simple type property
+@property (nonatomic, assign) MathOperation mathOperation;
 
 // MARK: - Major methods
 
