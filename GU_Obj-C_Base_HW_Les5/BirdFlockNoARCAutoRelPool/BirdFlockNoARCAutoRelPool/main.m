@@ -45,7 +45,6 @@ int main(int argc, const char * argv[]) {
     
     // Configure
     [flockOfBirds configureWithBirdLeader: birdLeader andBirds: birds];
-    [flockOfBirds autorelease];
     
     NSLog(@"Flock of birds is ready");
     
