@@ -27,6 +27,9 @@
 
 - (void)increaseAgeBy:(int)years {
     _ageIncrement = years;
+    // error handling
+    // it is possible to change the member of the class variable _age inspide the self.age is read only property:
+    //_age = [NSNumber numberWithInt: [_age intValue] + years];
 };
 
 // MARK: - Initializer
