@@ -1,8 +1,8 @@
 //
 //  FlockOfBirds.m
-//  BirdFlockNoARC
+//  BirdFlockNoARCAutoRelPool
 //
-//  Created by Роман Колосов on 20.12.2020.
+//  Created by Роман Колосов on 21.12.2020.
 //
 
 #import "FlockOfBirds.h"
