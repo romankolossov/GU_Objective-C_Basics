@@ -28,6 +28,7 @@ int main(int argc, const char * argv[]) {
         scanf("%lf", &y);
         
         do {
+            getchar();
             printf("Enter an action to perform:\n1 - sum, +\n2 - difference, -\n3 - multiplication, *\n4 - division, /\n5 - division by modul, %%\n");
             scanf("%c", &actionChar);
             
@@ -54,7 +55,9 @@ int main(int argc, const char * argv[]) {
             return  0;
         }
         
-        [Calculator calculateWithMathOperation: mathOperation firstNumber: x secondNumber: y];
+        double res = [Calculator calculateWithMathOperation: mathOperation firstNumber: x secondNumber: y];
+        
+        NSLog(@"\nThe result of calculations is %f", res);
     }
     return 0;
 }

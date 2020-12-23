@@ -47,26 +47,52 @@ ArithmeticBlock modulDivision = ^(double x, double y) {
 // MARK: - Static method
 
 + (double)calculateWithMathOperation:(MathOperation)mathOperation firstNumber: (double)x secondNumber: (double)y {
+    dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     switch (mathOperation) {
         case add: {
-            return summing(x, y);
+            __block double res;
+            
+            dispatch_sync(globalQueue, ^{
+                res = summing(x, y);
+            });
+            return res;
         }
             break;
         case subtrac: {
-            return difference(x, y);
+            __block double res;
+            
+            dispatch_sync(globalQueue, ^{
+                res = difference(x, y);
+            });
+            return res;
         }
             break;
         case multiply: {
-            return multiplication(x, y);
+            __block double res;
+            
+            dispatch_sync(globalQueue, ^{
+                res = multiplication(x, y);
+            });
+            return res;
         }
             break;
         case divide: {
-            return division(x, y);
+            __block double res;
+            
+            dispatch_sync(globalQueue, ^{
+                res = division(x, y);
+            });
+            return res;
         }
             break;
         case divideByModul: {
-            return modulDivision(x, y);
+            __block double res;
+            
+            dispatch_sync(globalQueue, ^{
+                res = modulDivision(x, y);
+            });
+            return res;
         }
             break;
     }
