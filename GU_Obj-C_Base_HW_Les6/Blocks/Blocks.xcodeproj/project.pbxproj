@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C85FBF2B2591978E0063A693 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C85FBF2A2591978E0063A693 /* main.m */; };
 		C85FBF3425926B720063A693 /* Calculator.m in Sources */ = {isa = PBXBuildFile; fileRef = C85FBF3325926B720063A693 /* Calculator.m */; };
+		C85FBF3925942A0C0063A693 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C85FBF3825942A0C0063A693 /* Operation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		C85FBF2A2591978E0063A693 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C85FBF3225926B720063A693 /* Calculator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Calculator.h; sourceTree = "<group>"; };
 		C85FBF3325926B720063A693 /* Calculator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Calculator.m; sourceTree = "<group>"; };
+		C85FBF3725942A0C0063A693 /* Operation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
+		C85FBF3825942A0C0063A693 /* Operation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				C85FBF2A2591978E0063A693 /* main.m */,
 				C85FBF3225926B720063A693 /* Calculator.h */,
 				C85FBF3325926B720063A693 /* Calculator.m */,
+				C85FBF3725942A0C0063A693 /* Operation.h */,
+				C85FBF3825942A0C0063A693 /* Operation.m */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C85FBF3925942A0C0063A693 /* Operation.m in Sources */,
 				C85FBF2B2591978E0063A693 /* main.m in Sources */,
 				C85FBF3425926B720063A693 /* Calculator.m in Sources */,
 			);

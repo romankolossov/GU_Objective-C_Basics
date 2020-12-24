@@ -7,8 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Calculator.h"
-
-
+#import "Operation.h"
 
 // MARK: - Main
 
@@ -17,6 +16,7 @@ int main(int argc, const char * argv[]) {
         // Some properties
         MathOperation mathOperation;
         double x, y;
+        __block double result;
         
         char actionChar;
         NSString *defActions = @"12345+-*/%";
@@ -55,9 +55,16 @@ int main(int argc, const char * argv[]) {
             return  0;
         }
         
-        double res = [Calculator calculateWithMathOperation: mathOperation firstNumber: x secondNumber: y];
+        NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+        // Operation *operation = [[Operation alloc] init];
+        // [mainQueue addOperation:operation];
         
-        NSLog(@"\nThe result of calculations is %f", res);
+        [mainQueue addBarrierBlock: ^{
+            result = [Calculator calculateWithMathOperation: mathOperation firstNumber: x secondNumber: y];
+        }];
+        sleep(1);
+        
+        NSLog(@"\nThe result of calculations is %f", result);
     }
     return 0;
 }
