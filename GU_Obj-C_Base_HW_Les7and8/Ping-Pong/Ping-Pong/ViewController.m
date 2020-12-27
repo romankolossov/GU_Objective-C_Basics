@@ -65,7 +65,7 @@ UILabel *createScoreLabel(NSString *position) {
 
 @property(nonatomic, strong) UITouch *touchTop;
 @property(nonatomic, strong) UITouch *touchBottom;
-@property(nonatomic, strong) NSTimer *timmer;
+@property(nonatomic, strong) NSTimer *timer;
 
 @property(nonatomic, assign) float dx;
 @property(nonatomic, assign) float dy;
@@ -84,6 +84,8 @@ UILabel *createScoreLabel(NSString *position) {
 }
 
 // MARK: - Major methods
+
+// MARK: Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
@@ -131,6 +133,8 @@ UILabel *createScoreLabel(NSString *position) {
 
 #pragma mark - Private
 
+// MARK: Config
+
 - (void)config {
     self.view.backgroundColor = [UIColor colorWithRed:100.0/255.0 green:135.0/255.0 blue:191.0/255 alpha:1];
     
@@ -161,6 +165,95 @@ UILabel *createScoreLabel(NSString *position) {
     [self.view addSubview:botScore];
     self.scoreTop = topScore;
     self.scoreBottom = botScore;
+}
+
+- (void)displayMessage:(NSString *)message {
+    [self stop];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ping Pong" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        if ([self gameOver] != 0) {
+            [self newGame];
+        } else {
+            [self reset];
+            [self start];
+        }
+    }];
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)reset {
+    self.dx = ((arc4random() % 2) == 0) ? -1 : 1;
+    
+    if (self.dy != 0) {
+        self.dy = -self.dy;
+    } else {
+        self.dy = ((arc4random() % 2) == 0) ? -1 : 1;
+    }
+    self.ballView.center = self.view.center;
+    
+    self.speed = 2;
+}
+
+-(void)start {
+    self.ballView.center = self.view.center;
+    
+    if (self.timer == nil) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0) target:self selector:@selector(animate) userInfo:nil repeats:YES];
+    }
+    self.ballView.hidden = NO;
+}
+
+-(void)stop {
+    [self.timer invalidate];
+    
+    self.timer = nil;
+    self.ballView.hidden = YES;
+}
+
+-(int)gameOver {
+    if ([self.scoreTop.text intValue] >= MAX_SCORE) {
+        return 1;
+    }
+    if ([self.scoreBottom.text intValue] >= MAX_SCORE) {
+        return 2;
+    }
+    return 0;
+}
+
+-(void)newGame {
+    [self reset];
+    
+    self.scoreTop.text = @"0";
+    self.scoreBottom.text = @"0";
+    
+    [self displayMessage:@"Are you ready?"];
+}
+
+-(void)animate {
+    // TODO
+}
+
+-(void)increaseSpeed {
+    self.speed += 0.5;
+    if (self.speed > 10.0) {
+        self.speed = 10.0;
+    }
+}
+
+- (BOOL)checkCollision:(CGRect)rect x:(float)x y:(float)y {
+    if (CGRectIntersectsRect(self.ballView.frame, rect)) {
+        if (x != 0.0) {
+            self.dx = x;
+        }
+        if (y != 0.0) {
+            self.dy = y;
+        }
+        return YES;
+    }
+    return  NO;
 }
 
 @end
