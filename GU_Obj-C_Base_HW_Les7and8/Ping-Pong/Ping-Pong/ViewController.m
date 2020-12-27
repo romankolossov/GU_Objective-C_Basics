@@ -85,6 +85,52 @@ UILabel *createScoreLabel(NSString *position) {
 
 // MARK: - Major methods
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        CGPoint point = [touch locationInView:self.view];
+        if (self.touchBottom == nil && point.y > HALF_SCREEN_HEIGHT) {
+            self.touchBottom = touch;
+            self.paddleBottom.center = point;
+        } else if (self.touchTop == nil && point.y < HALF_SCREEN_HEIGHT) {
+            self.touchTop = touch;
+            self.paddleTop.center = point;
+        }
+    }
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        CGPoint point = [touch locationInView:self.view];
+        if (self.touchTop == touch) {
+            if (point.y > HALF_SCREEN_HEIGHT) {
+                point.y = HALF_SCREEN_HEIGHT;
+            }
+            self.paddleTop.center = point;
+        } else if (self.touchBottom == touch) {
+            if (point.y < HALF_SCREEN_HEIGHT) {
+                point.y = HALF_SCREEN_HEIGHT;
+            }
+            self.paddleBottom.center = point;
+        }
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        if (self.touchTop == touch) {
+            self.touchTop = nil;
+        } else if (self.touchBottom == touch) {
+            self.touchBottom = nil;
+        }
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self touchesEnded:touches withEvent:event];
+}
+
+#pragma mark - Private
+
 - (void)config {
     self.view.backgroundColor = [UIColor colorWithRed:100.0/255.0 green:135.0/255.0 blue:191.0/255 alpha:1];
     
