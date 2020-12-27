@@ -13,7 +13,46 @@
 #define HALF_SCREEN_HEIGHT  SCREEN_HEIGHT / 2
 #define MAX_SCORE           6
 
+// MARK: - Major functions
 
+UIImageView *createPaddleView(NSString *position) {
+    NSString *imageName;
+    CGFloat y;
+
+    if ([position isEqual:@"top"]) {
+        imageName = @"paddleTop";
+        y = 40;
+    } else if ([position isEqual:@"bottom"]) {
+        imageName = @"paddleBot";
+        y = SCREEN_HEIGHT - 90;
+    } else return [UIImageView alloc];
+
+    UIImageView *paddleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    paddleView.frame = CGRectMake(30.0, y, 90.0, 60.0);
+    paddleView.contentMode = UIViewContentModeScaleAspectFit;
+
+    return  paddleView;
+}
+
+UILabel *createScoreLabel(NSString *position) {
+    CGFloat y;
+    
+    if ([position isEqual:@"top"]) {
+        y = HALF_SCREEN_HEIGHT - 70;
+    } else if ([position isEqual:@"bottom"]) {
+        y = HALF_SCREEN_HEIGHT + 20;
+    } else return [UILabel alloc];
+    
+    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 70.0, y, 50.0, 50.0)];
+    scoreLabel.textColor = [UIColor whiteColor];
+    scoreLabel.text = @"0";
+    scoreLabel.font = [UIFont systemFontOfSize:40.0 weight:UIFontWeightLight];
+    scoreLabel.textAlignment = NSTextAlignmentCenter;
+    
+    return scoreLabel;
+}
+
+// MARK: - Interface
 
 @interface ViewController ()
 
@@ -34,6 +73,8 @@
 
 @end
 
+// MARK: - Implementation
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -41,6 +82,8 @@
     
     [self config];
 }
+
+// MARK: - Major methods
 
 - (void)config {
     self.view.backgroundColor = [UIColor colorWithRed:100.0/255.0 green:135.0/255.0 blue:191.0/255 alpha:1];
@@ -50,18 +93,6 @@
     [self.view addSubview:grid];
     self.gridView = grid;
     
-    UIImageView *top = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paddleTop"]];
-    top.frame = CGRectMake(30.0, 40.0, 90.0, 60.0);
-    top.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:top];
-    self.paddleTop = top;
-    
-    UIImageView *bottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paddleBot"]];
-    bottom.frame = CGRectMake(30.0, SCREEN_HEIGHT - 90, 90.0, 60.0);
-    bottom.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:bottom];
-    self.paddleBottom = bottom;
-    
     UIView *ball = [[UIView alloc] initWithFrame:CGRectMake(self.view.center.x - 10.0, self.view.center.y - 10.0, 20.0, 20.0)];
     ball.backgroundColor = [UIColor whiteColor];
     ball.layer.cornerRadius = 10.0;
@@ -69,22 +100,21 @@
     [self.view addSubview:ball];
     self.ballView = ball;
     
-    UILabel *topScore = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 70.0, HALF_SCREEN_HEIGHT - 70, 50.0, 50.0)];
-    topScore.textColor = [UIColor whiteColor];
-    topScore.text = @"0";
-    topScore.font = [UIFont systemFontOfSize:40.0 weight:UIFontWeightLight];
-    topScore.textAlignment = NSTextAlignmentCenter;
+    UIImageView *top = createPaddleView(@"top");
+    UIImageView * bottom = createPaddleView(@"bottom");
+    
+    [self.view addSubview:top];
+    [self.view addSubview:bottom];
+    self.paddleTop = top;
+    self.paddleBottom = bottom;
+    
+    UILabel *topScore = createScoreLabel(@"top");
+    UILabel *botScore = createScoreLabel(@"bottom");
+    
     [self.view addSubview:topScore];
-    self.scoreTop = topScore;
-    
-    UILabel *botScore = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 70.0, HALF_SCREEN_HEIGHT + 20, 50.0, 50.0)];
-    botScore.textColor = [UIColor whiteColor];
-    botScore.text = @"0";
-    botScore.font = [UIFont systemFontOfSize:40.0 weight:UIFontWeightLight];
-    botScore.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:botScore];
+    self.scoreTop = topScore;
     self.scoreBottom = botScore;
-    
 }
 
 @end
