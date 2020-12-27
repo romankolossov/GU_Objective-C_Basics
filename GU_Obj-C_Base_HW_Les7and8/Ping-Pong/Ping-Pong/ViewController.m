@@ -7,6 +7,8 @@
 
 #import "ViewController.h"
 
+// MARK: - Directives
+
 #define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT       [UIScreen mainScreen].bounds.size.height
 #define HALF_SCREEN_WIDTH   SCREEN_WIDTH / 2
@@ -56,6 +58,8 @@ UILabel *createScoreLabel(NSString *position) {
 
 @interface ViewController ()
 
+// MARK: Some properties
+
 @property(nonatomic, weak) UIImageView *paddleTop;
 @property(nonatomic, weak) UIImageView *paddleBottom;
 @property(nonatomic, weak) UIView *gridView;
@@ -77,10 +81,18 @@ UILabel *createScoreLabel(NSString *position) {
 
 @implementation ViewController
 
+// MARK: - Lifecyle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self config];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self newGame];
 }
 
 // MARK: - Major methods
@@ -167,6 +179,8 @@ UILabel *createScoreLabel(NSString *position) {
     self.scoreBottom = botScore;
 }
 
+// MARK: displayMessage
+
 - (void)displayMessage:(NSString *)message {
     [self stop];
     
@@ -184,6 +198,8 @@ UILabel *createScoreLabel(NSString *position) {
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+// MARK: reset
+
 -(void)reset {
     self.dx = ((arc4random() % 2) == 0) ? -1 : 1;
     
@@ -197,6 +213,8 @@ UILabel *createScoreLabel(NSString *position) {
     self.speed = 2;
 }
 
+// MARK: start
+
 -(void)start {
     self.ballView.center = self.view.center;
     
@@ -206,12 +224,16 @@ UILabel *createScoreLabel(NSString *position) {
     self.ballView.hidden = NO;
 }
 
+// MARK: stop
+
 -(void)stop {
     [self.timer invalidate];
     
     self.timer = nil;
     self.ballView.hidden = YES;
 }
+
+// MARK: gameOver
 
 -(int)gameOver {
     if ([self.scoreTop.text intValue] >= MAX_SCORE) {
@@ -223,6 +245,8 @@ UILabel *createScoreLabel(NSString *position) {
     return 0;
 }
 
+// MARK: newGame
+
 -(void)newGame {
     [self reset];
     
@@ -232,9 +256,24 @@ UILabel *createScoreLabel(NSString *position) {
     [self displayMessage:@"Are you ready?"];
 }
 
+// MARK: animate
+
 -(void)animate {
-    // TODO
+    self.ballView.center = CGPointMake(self.ballView.center.x + self.dx * self.speed, self.ballView.center.y + self.dy * self.speed);
+    
+    [self checkCollision:CGRectMake(0.0, 0.0, 20.0, SCREEN_HEIGHT) x:fabs(self.dx) y:0.0];
+    [self checkCollision:CGRectMake(SCREEN_WIDTH, 0.0, 20.0, SCREEN_HEIGHT) x:-fabs(self.dx) y:0.0];
+    
+    if ([self checkCollision:self.paddleTop.frame x:(self.ballView.center.x - self.paddleTop.center.x) / 32 y:1.0]) {
+        [self increaseSpeed];
+    }
+    if ([self checkCollision:self.paddleBottom.frame x:(self.ballView.center.x - self.paddleBottom.center.x) / 32 y:-1.0]) {
+        [self increaseSpeed];
+    }
+    [self goal];
 }
+
+// MARK: increaseSpeed
 
 -(void)increaseSpeed {
     self.speed += 0.5;
@@ -242,6 +281,8 @@ UILabel *createScoreLabel(NSString *position) {
         self.speed = 10.0;
     }
 }
+
+// MARK: checkCollision
 
 - (BOOL)checkCollision:(CGRect)rect x:(float)x y:(float)y {
     if (CGRectIntersectsRect(self.ballView.frame, rect)) {
@@ -254,6 +295,30 @@ UILabel *createScoreLabel(NSString *position) {
         return YES;
     }
     return  NO;
+}
+
+// MARK: goal
+
+- (BOOL)goal {
+    if (self.ballView.center.y < 0.0 || self.ballView.center.y > SCREEN_HEIGHT) {
+        int s1 = [self.scoreTop.text intValue];
+        int s2 = [self.scoreBottom.text intValue];
+        
+        self.ballView.center.y < 0.0 ? s2++ : s1++;
+        
+        self.scoreTop.text = [NSString stringWithFormat:@"%u", s1];
+        self.scoreBottom.text = [NSString stringWithFormat:@"%u", s2];
+        
+        int gameOver = [self gameOver];
+        
+        if (gameOver != 0) {
+            [self displayMessage:[NSString stringWithFormat:@"Player %i wins", gameOver]];
+        } else {
+            [self reset];
+        }
+        return YES;
+    }
+    return NO;
 }
 
 @end
