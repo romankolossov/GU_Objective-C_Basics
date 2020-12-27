@@ -57,8 +57,8 @@
     self.paddleTop = top;
     
     UIImageView *bottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paddleBot"]];
-    top.frame = CGRectMake(30.0, SCREEN_HEIGHT - 90, 90.0, 60.0);
-    top.contentMode = UIViewContentModeScaleAspectFit;
+    bottom.frame = CGRectMake(30.0, SCREEN_HEIGHT - 90, 90.0, 60.0);
+    bottom.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:bottom];
     self.paddleBottom = bottom;
     
