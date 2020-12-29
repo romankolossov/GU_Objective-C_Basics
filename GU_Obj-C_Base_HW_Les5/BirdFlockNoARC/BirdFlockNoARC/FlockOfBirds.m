@@ -24,8 +24,8 @@
 
 - (void)dealloc {
     NSLog(@"Flock deallocated");
-    _birdLeader = nil;
-    _birds = nil;
+    [_birdLeader release];
+    [_birds release];
     [super dealloc];
 }
 

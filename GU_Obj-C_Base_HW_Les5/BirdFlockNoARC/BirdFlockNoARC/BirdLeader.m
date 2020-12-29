@@ -31,7 +31,7 @@
 
 - (void)dealloc {
     NSLog(@"Dealloc leader with name %@", _leader);
-    _leader = nil;
+    [_leader release];
     [super dealloc];
 }
 
