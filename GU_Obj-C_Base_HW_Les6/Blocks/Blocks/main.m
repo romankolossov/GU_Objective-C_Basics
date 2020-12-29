@@ -1,31 +1,22 @@
 //
 //  main.m
-//  CalcSeparated
+//  Blocks
 //
-//  Created by Роман Колосов on 13.12.2020.
+//  Created by Роман Колосов on 22.12.2020.
 //
 
 #import <Foundation/Foundation.h>
+#import "Calculator.h"
+#import "Operation.h"
 
-double summing(double x, double y) {
-    return x + y;
-}
-double difference(double x, double y) {
-    return x - y;
-}
-double multiplication(double x, double y) {
-    return x * y;
-}
-double division(double x, double y) {
-    return x / y;
-}
-int modulDivision(double x, double y) {
-    return (int)x % (int)y;
-}
+// MARK: - Main
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // Some properties
+        MathOperation mathOperation;
         double x, y;
+        __block double result;
         
         char actionChar;
         NSString *defActions = @"12345+-*/%";
@@ -51,23 +42,30 @@ int main(int argc, const char * argv[]) {
         BOOL provedDivisionByModul = [action isEqualToString: @"%"] || [action isEqualToString: @"5"];
         
         if (provedSum) {
-            double sum = summing(x, y);
-            NSLog(@"%f + %f = %f", x, y, sum);
+            mathOperation = add;
         } else if (provedDifference) {
-            double diff = difference(x, y);
-            NSLog(@"%f - %f = %f", x, y, diff);
+            mathOperation = subtrac;
         } else if (provedMultiplication) {
-            double mult = multiplication(x, y);
-            NSLog(@"%f * %f = %f", x, y, mult);
+            mathOperation = multiply;
         } else if (provedDivision) {
-            double div = division(x, y);
-            NSLog(@"%f / %f = %f", x, y, div);
+            mathOperation = divide;
         } else if (provedDivisionByModul) {
-            int modulDiv = modulDivision(x, y);
-            NSLog(@"%d %% %d = %d", (int)x, (int)y, modulDiv);
+            mathOperation = divideByModul;
         } else {
             return  0;
         }
+        
+        NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+        // Operation *operation = [[Operation alloc] init];
+        // [mainQueue addOperation:operation];
+        
+        [mainQueue addBarrierBlock: ^{
+            result = [Calculator calculateWithMathOperation: mathOperation firstNumber: x secondNumber: y];
+        }];
+        sleep(1);
+        
+        NSLog(@"\nThe result of calculations is %f", result);
     }
     return 0;
 }
+
